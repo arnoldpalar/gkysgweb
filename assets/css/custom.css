@@ -1,1 +1,38 @@
-/* Add here all your css styles (customizations) */
+#main-title {
+    font-size: 2em;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+@media (max-width: 507px){
+    #main-title {
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 434px){
+    #main-title {
+        font-size: 1.2em;
+    }
+}
+
+.notification-item {
+    display: block;
+}
+
+.navbar-brand a:hover {
+    text-decoration: none;
+}
+
+@media (min-width: 992px) {
+    .header-v6 .navbar-nav {
+        float: right;
+    }
+}
+
+@media (max-width: 991px){
+    .header-v6 .navbar-brand {
+        padding-top: 12px;
+    }
+}
+

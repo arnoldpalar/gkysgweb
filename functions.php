@@ -138,3 +138,332 @@ require get_template_directory() . '/inc/customizer.php';
  * Load Jetpack compatibility file.
  */
 require get_template_directory() . '/inc/jetpack.php';
+
+/**
+ * Register custom post types
+ */
+function init_event_post() {
+	$labels = array(
+		'name'               => __( 'Events' ),
+		'singular_name'      => __( 'Event' ),
+		'menu_name'          => __( 'Events' ),
+		'name_admin_bar'     => __( 'Event' ),
+		'add_new'            => _x( 'Add New', 'Event' ),
+		'add_new_item'       => __( 'Add New Event' ),
+		'new_item'           => __( 'New Event' ),
+		'edit_item'          => __( 'Edit Event' ),
+		'view_item'          => __( 'View Event' ),
+		'all_items'          => __( 'All Events' ),
+		'search_items'       => __( 'Search Events' ),
+		'parent_item_colon'  => __( 'Parent Event:' ),
+		'not_found'          => __( 'No Event found.' ),
+		'not_found_in_trash' => __( 'No Event found in Trash.' ),
+	);
+
+	$args = array(
+		'labels'             => $labels,
+		'public'             => true,
+		'publicly_queryable' => true,
+		'show_ui'            => true,
+		'show_in_menu'       => true,
+		'query_var'          => true,
+		'rewrite'            => array( 'slug' => 'event' ),
+		'capability_type'    => 'post',
+		'has_archive'        => true,
+		'hierarchical'       => false,
+		'menu_position'      => null,
+		'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'revisions' ),
+		'taxonomies'         => array('event-type')
+	);
+
+	register_post_type( 'event', $args );
+}
+add_action( 'init', 'init_event_post' );
+
+add_action( 'init', 'init_album_post' );
+function init_album_post() {
+	$labels = array(
+		'name'               => __( 'Albums' ),
+		'singular_name'      => __( 'Album' ),
+		'menu_name'          => __( 'Albums' ),
+		'name_admin_bar'     => __( 'Album' ),
+		'add_new'            => _x( 'Add New', 'Album' ),
+		'add_new_item'       => __( 'Add New Album' ),
+		'new_item'           => __( 'New Album' ),
+		'edit_item'          => __( 'Edit Album' ),
+		'view_item'          => __( 'View Album' ),
+		'all_items'          => __( 'All Albums' ),
+		'search_items'       => __( 'Search Album' ),
+		'parent_item_colon'  => __( 'Parent Albums:' ),
+		'not_found'          => __( 'No Albums found.' ),
+		'not_found_in_trash' => __( 'No Albums found in Trash.' ),
+	);
+
+	$args = array(
+		'labels'             => $labels,
+		'public'             => true,
+		'publicly_queryable' => true,
+		'show_ui'            => true,
+		'show_in_menu'       => true,
+		'query_var'          => true,
+		'rewrite'            => array( 'slug' => 'album' ),
+		'capability_type'    => 'post',
+		'has_archive'        => true,
+		'hierarchical'       => false,
+		'menu_position'      => null,
+		'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'revisions' )
+	);
+
+	register_post_type( 'album', $args );
+}
+
+add_action( 'init', 'init_song_post' );
+function init_song_post() {
+	$labels = array(
+		'name'               => __( 'Songs' ),
+		'singular_name'      => __( 'Song' ),
+		'menu_name'          => __( 'Songs' ),
+		'name_admin_bar'     => __( 'Song' ),
+		'add_new'            => _x( 'Add New', 'Song' ),
+		'add_new_item'       => __( 'Add New Song' ),
+		'new_item'           => __( 'New Song' ),
+		'edit_item'          => __( 'Edit Song' ),
+		'view_item'          => __( 'View Song' ),
+		'all_items'          => __( 'All Songs' ),
+		'search_items'       => __( 'Search Song' ),
+		'parent_item_colon'  => __( 'Parent Songs:' ),
+		'not_found'          => __( 'No Songs found.' ),
+		'not_found_in_trash' => __( 'No Songs found in Trash.' ),
+	);
+
+	$args = array(
+		'labels'             => $labels,
+		'public'             => true,
+		'publicly_queryable' => true,
+		'show_ui'            => true,
+		'show_in_menu'       => true,
+		'query_var'          => true,
+		'rewrite'            => array( 'slug' => 'song' ),
+		'capability_type'    => 'post',
+		'has_archive'        => true,
+		'hierarchical'       => false,
+		'menu_position'      => null,
+		'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'revisions' )
+	);
+
+	register_post_type( 'song', $args );
+}
+
+/**
+ * Register custom taxonomy
+ */
+function init_taxonomy_event_types() {
+	$labels = array(
+		'name'              => _x( 'Event Types', 'taxonomy general name' ),
+		'singular_name'     => _x( 'Event Type', 'taxonomy singular name' ),
+		'search_items'      => __( 'Search Event Types' ),
+		'all_items'         => __( 'All Event Types' ),
+		'parent_item'       => __( 'Parent Event Type' ),
+		'parent_item_colon' => __( 'Parent Event Type:' ),
+		'edit_item'         => __( 'Edit Event Type' ),
+		'update_item'       => __( 'Update Event Type' ),
+		'add_new_item'      => __( 'Add New Event Type' ),
+		'new_item_name'     => __( 'New Event Type Name' ),
+		'menu_name'         => __( 'Event Types' )
+	);
+
+	$args = array(
+		'hierarchical'      => true,
+		'labels'            => $labels,
+		'show_ui'           => true,
+		'show_admin_column' => false,
+		'query_var'         => true,
+		'rewrite'           => array( 'slug' => 'event-type' )
+	);
+
+	register_taxonomy('event-type', null, $args);
+
+	register_taxonomy_for_object_type( 'event-type', 'event' );
+}
+add_action( 'init', 'init_taxonomy_event_types' );
+
+function init_taxonomy_song_types() {
+	$labels = array(
+		'name'              => _x( 'Song Types', 'taxonomy general name' ),
+		'singular_name'     => _x( 'Song Type', 'taxonomy singular name' ),
+		'search_items'      => __( 'Search Song Types' ),
+		'all_items'         => __( 'All Song Types' ),
+		'parent_item'       => __( 'Parent Song Type' ),
+		'parent_item_colon' => __( 'Parent Song Type:' ),
+		'edit_item'         => __( 'Edit Song Type' ),
+		'update_item'       => __( 'Update Song Type' ),
+		'add_new_item'      => __( 'Add New Song Type' ),
+		'new_item_name'     => __( 'New Song Type Name' ),
+		'menu_name'         => __( 'Song Types' )
+	);
+
+	$args = array(
+		'hierarchical'      => true,
+		'labels'            => $labels,
+		'show_ui'           => true,
+		'show_admin_column' => false,
+		'query_var'         => true,
+		'rewrite'           => array( 'slug' => 'song-type' )
+	);
+
+	register_taxonomy('song-type', null, $args);
+
+	register_taxonomy_for_object_type( 'song-type', 'song' );
+}
+add_action( 'init', 'init_taxonomy_song_types' );
+
+function init_taxonomy_language() {
+	$labels = array(
+		'name'              => _x( 'Language', 'taxonomy general name' ),
+		'singular_name'     => _x( 'Language', 'taxonomy singular name' ),
+		'search_items'      => __( 'Search Language' ),
+		'all_items'         => __( 'All Language' ),
+		'parent_item'       => __( 'Parent Language' ),
+		'parent_item_colon' => __( 'Parent Language:' ),
+		'edit_item'         => __( 'Edit Language' ),
+		'update_item'       => __( 'Update Language' ),
+		'add_new_item'      => __( 'Add New Language' ),
+		'new_item_name'     => __( 'New Language Name' ),
+		'menu_name'         => __( 'Language' )
+	);
+
+	$args = array(
+		'hierarchical'      => true,
+		'labels'            => $labels,
+		'show_ui'           => true,
+		'show_admin_column' => false,
+		'query_var'         => true,
+		'rewrite'           => array( 'slug' => 'language' )
+	);
+
+	register_taxonomy('language', null, $args);
+
+	register_taxonomy_for_object_type( 'language', 'song' );
+}
+add_action( 'init', 'init_taxonomy_language' );
+
+function ajax_get_song_types(){
+	$res = array();
+
+	$song_types = get_terms('song-type', array('hide_empty' => false));
+	foreach($song_types as $song_type){
+		$res[] = $song_type->name;
+	}
+
+	echo json_encode($res);
+	die();
+}
+add_action('wp_ajax_get_song_types', 'ajax_get_song_types');
+add_action('wp_ajax_nopriv_get_song_types', 'ajax_get_song_types' );
+
+function ajax_get_languages(){
+	$res = array();
+
+	$song_languages = get_terms('language', array('hide_empty' => false));
+	foreach($song_languages as $song_language){
+		$res[] = $song_language->name;
+	}
+
+	echo json_encode($res);
+	die();
+}
+add_action('wp_ajax_get_languages', 'ajax_get_languages');
+add_action('wp_ajax_nopriv_get_languages', 'ajax_get_languages' );
+
+function ajax_get_songs(){
+	$res = array();
+
+	$ss_song_args = array(
+		'post_type'		=> 'song',
+		'orderby'		=> 'title',
+		'order'			=> 'ASC',
+		'numberposts'	=> -1
+	);
+
+	$ss_songs = get_posts( $ss_song_args );
+	foreach($ss_songs as $post){
+		setup_postdata( $post );
+
+		$types = get_the_terms( $post->ID, 'song-type' );
+		$typeNames = array();
+		if($types && !empty($types)){
+			foreach ($types as $type) {
+				$typeNames[] = $type->name;
+			}
+		}
+
+		$langs = get_the_terms( $post->ID, 'language' );
+		$langNames = array();
+		if($langs && !empty($langs)){
+			foreach ($langs as $lang) {
+				$langNames[] = $lang->name;
+			}
+		}
+
+		$res[] = array(
+			'ID' => $post->ID,
+			'url' => get_permalink($post->ID),
+			'title' => get_the_title($post),
+			'types' => $typeNames,
+			'languages' => $langNames
+		);
+	}
+	wp_reset_postdata();
+
+	echo json_encode($res);
+	die();
+}
+add_action('wp_ajax_get_songs', 'ajax_get_songs');
+add_action('wp_ajax_nopriv_get_songs', 'ajax_get_songs' );
+
+function ajax_get_song(){
+	$postID = intval($_GET['postid']);
+	$post = get_post($postID);
+
+	setup_postdata( $post );
+
+	$videos = array();
+	while (have_rows("videos")) : the_row();
+		if( get_row_layout() == 'youtube' ) {
+
+			$videos[] = array(
+				'youtubeID' => get_sub_field('youtube_id')
+			);
+		}
+	endwhile;
+
+	$types = get_the_terms( $post->ID, 'song-type' );
+	$typeNames = array();
+	if($types && !empty($types)){
+		foreach ($types as $type) {
+			$typeNames[] = $type->name;
+		}
+	}
+
+	$langs = get_the_terms( $post->ID, 'language' );
+	$langNames = array();
+	if($langs && !empty($langs)){
+		foreach ($langs as $lang) {
+			$langNames[] = $lang->name;
+		}
+	}
+
+	$res = array(
+		'entity' => $post,
+		'types' => $typeNames,
+		'languages' => $langNames,
+		'videos' => $videos
+	);
+
+	wp_reset_postdata();
+
+	echo json_encode($res);
+	die();
+}
+add_action('wp_ajax_get_song', 'ajax_get_song');
+add_action('wp_ajax_nopriv_get_song', 'ajax_get_song' );

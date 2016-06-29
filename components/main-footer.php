@@ -5,7 +5,7 @@
             <div class="row">
                 <!-- About Us -->
                 <div class="col-md-3 sm-margin-bottom-40">
-                    <div class="heading-footer"><h2>About Unify</h2></div>
+                    <div class="heading-footer"><h2>GKY Singapore</h2></div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis blandit ut metus a commodo. Pellentesque congue tellus sed enim sollicitudin, id blandit mauris eleifend.</p>
                 </div>
                 <!-- End About Us -->
