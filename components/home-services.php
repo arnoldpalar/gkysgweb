@@ -18,7 +18,7 @@ $ss_event_args = array(
 
 $ss_events = get_posts( $ss_event_args );
 ?>
-<div class="container content-md" style="padding-top: 40px; padding-bottom: 50px;">
+<div class="services container content-md" style="padding-top: 40px; padding-bottom: 50px;">
     <div class="text-center margin-bottom-50">
         <h2 class="title-v2 title-center">SUNDAY SERVICES</h2>
     </div>
@@ -31,10 +31,10 @@ $ss_events = get_posts( $ss_event_args );
             ?>
             <div class="col-md-4 col-sm-6 md-margin-bottom-40">
                 <div class="service-block service-block-default no-margin-bottom">
-                    <h2 class="heading-sm"><?php the_field('sub_title') ?></h2>
+                    <h2 class="service-title heading-sm"><a href="<?php echo get_permalink() ?>"><?php the_field('sub_title') ?></a></h2>
                     <p><?php the_field('sermon') ?></p>
                     <ul class="list-unstyled">
-                        <li><?php the_title() ?></li>
+                        <li><strong><?php the_title() ?></strong></li>
                         <?php
                         $sessions = array();
                         while ( have_rows('service_sessions') ) : the_row();

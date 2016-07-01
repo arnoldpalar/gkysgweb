@@ -11,7 +11,7 @@
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
 <head>
-    <title>Incredible | Unify - Responsive Website Template</title>
+    <title>GKY Singapore</title>
 
     <!-- Meta -->
     <meta charset="utf-8">
@@ -20,7 +20,7 @@
     <meta name="author" content="">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/favicon.ico">
 
     <!-- Fonts-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700' rel='stylesheet' type='text/css'>
@@ -44,8 +44,11 @@
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/plugins/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/plugins/fancybox/source/jquery.fancybox.css">
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/plugins/owl-carousel/owl-carousel/owl.carousel.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/plugins/master-slider/masterslider/style/masterslider.css">
-    <link rel='stylesheet' href="<?php echo get_template_directory_uri(); ?>/assets/plugins/master-slider/masterslider/skins/black-2/style.css">
+
+    <!--<link rel="stylesheet" href="--><?php //echo get_template_directory_uri(); ?><!--/assets/plugins/master-slider/masterslider/style/masterslider.css">-->
+    <!--<link rel='stylesheet' href="--><?php //echo get_template_directory_uri(); ?><!--/assets/plugins/master-slider/masterslider/skins/black-2/style.css">-->
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/plugins/revolution-slider/rs-plugin/css/settings.css" type="text/css" media="screen">
+    <!--[if lt IE 9]><link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/plugins/revolution-slider/rs-plugin/css/settings-ie8.css" type="text/css" media="screen"><![endif]-->
 
     <!-- CSS Pages Style -->
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/pages/page_one.css">

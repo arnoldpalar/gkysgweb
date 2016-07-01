@@ -13,11 +13,11 @@ get_header();
 
     <div class="breadcrumbs">
         <div class="container">
-            <h1 class="pull-left">Blank Page</h1>
+            <h1 class="pull-left"><?php the_title() ?></h1>
             <ul class="pull-right breadcrumb">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="">Pages</a></li>
-                <li class="active">Blank Page</li>
+                <li><a href="/">Home</a></li>
+                <li>Pages</li>
+                <li class="active"><?php the_title() ?></li>
             </ul>
         </div><!--/container-->
     </div>
@@ -29,9 +29,9 @@ get_header();
             get_template_part( 'template-parts/content', 'page' );
 
             // If comments are open or we have at least one comment, load up the comment template.
-            if ( comments_open() || get_comments_number() ) :
+            /*if ( comments_open() || get_comments_number() ) :
                 comments_template();
-            endif;
+            endif;*/
 
         endwhile; // End of the loop.
         ?>

@@ -467,3 +467,197 @@ function ajax_get_song(){
 }
 add_action('wp_ajax_get_song', 'ajax_get_song');
 add_action('wp_ajax_nopriv_get_song', 'ajax_get_song' );
+
+
+/*Theme Setting Setup*/
+add_action( 'admin_menu', 'gkysg_setting_add_admin_menu' );
+add_action( 'admin_init', 'gkysg_setting_init' );
+
+
+function gkysg_setting_add_admin_menu(  ) {
+
+	add_options_page( 'GKY SG Theme Setting', 'GKY SG Theme Setting', 'manage_options', 'gkysg-theme-setting', 'gkysg_theme_setting_page', null, 1 );
+
+}
+
+
+function gkysg_setting_init(  ) {
+
+	register_setting( 'pluginPage', 'gkysg_settings' );
+
+	add_settings_section(
+		'gkysg_pluginPage_section',
+		__( 'GKY Singapore Theme Setting', 'wordpress' ),
+		'gkysg_settings_section_callback',
+		'pluginPage'
+	);
+
+	add_settings_field(
+      'web_description',
+      __( 'Web Description', 'wordpress' ),
+      'gkysg_web_description_render',
+      'pluginPage',
+      'gkysg_pluginPage_section'
+   );
+
+   add_settings_field(
+      'address',
+      __( 'Address', 'wordpress' ),
+      'gkysg_address_render',
+      'pluginPage',
+      'gkysg_pluginPage_section'
+   );
+
+	add_settings_field(
+		'phone',
+		__( 'Phone Number', 'wordpress' ),
+		'gkysg_phone_render',
+		'pluginPage',
+		'gkysg_pluginPage_section'
+	);
+
+	add_settings_field(
+		'bank_account',
+		__( 'Bank Account', 'wordpress' ),
+		'gkysg_bank_account_render',
+		'pluginPage',
+		'gkysg_pluginPage_section'
+	);
+
+    add_settings_field(
+       'email',
+       __( 'e-mail', 'wordpress' ),
+       'gkysg_email_render',
+       'pluginPage',
+       'gkysg_pluginPage_section'
+    );
+
+	add_settings_field(
+		'facebook_link',
+		__( 'Facebook', 'wordpress' ),
+		'gkysg_facebook_link_render',
+		'pluginPage',
+		'gkysg_pluginPage_section'
+	);
+
+	add_settings_field(
+		'twitter_link',
+		__( 'Twitter', 'wordpress' ),
+		'gkysg_twitter_link_render',
+		'pluginPage',
+		'gkysg_pluginPage_section'
+	);
+
+	add_settings_field(
+		'youtube_link',
+		__( 'Youtube', 'wordpress' ),
+		'gkysg_youtube_link_render',
+		'pluginPage',
+		'gkysg_pluginPage_section'
+	);
+
+}
+
+
+function gkysg_web_description_render(  ) {
+
+	$options = get_option( 'gkysg_settings' );
+	?>
+	<textarea cols='40' rows='5' name='gkysg_settings[web_description]'><?php echo trim($options['web_description']); ?></textarea>
+	<?php
+
+}
+
+
+function gkysg_address_render(  ) {
+
+	$options = get_option( 'gkysg_settings' );
+	?>
+	<textarea cols='40' rows='4' name='gkysg_settings[address]'><?php echo trim($options['address']); ?></textarea>
+	<?php
+
+}
+
+
+function gkysg_phone_render(  ) {
+
+	$options = get_option( 'gkysg_settings' );
+	?>
+	<textarea cols='40' rows='3' name='gkysg_settings[phone]'><?php echo trim($options['phone']); ?></textarea>
+	<?php
+
+}
+
+
+function gkysg_email_render(  ) {
+
+	$options = get_option( 'gkysg_settings' );
+	?>
+	<input type='email' name='gkysg_settings[email]' value='<?php echo $options['email']; ?>' size="40">
+	<?php
+
+}
+
+
+function gkysg_facebook_link_render(  ) {
+
+	$options = get_option( 'gkysg_settings' );
+	?>
+	<input type='url' name='gkysg_settings[facebook_link]' value='<?php echo $options['facebook_link']; ?>' size="50">
+	<?php
+
+}
+
+
+function gkysg_twitter_link_render(  ) {
+
+	$options = get_option( 'gkysg_settings' );
+	?>
+	<input type='url' name='gkysg_settings[twitter_link]' value='<?php echo $options['twitter_link']; ?>' size="50">
+	<?php
+
+}
+
+
+function gkysg_youtube_link_render(  ) {
+
+	$options = get_option( 'gkysg_settings' );
+	?>
+	<input type='url' name='gkysg_settings[youtube_link]' value='<?php echo $options['youtube_link']; ?>' size="50">
+	<?php
+
+}
+
+
+function gkysg_bank_account_render(  ) {
+
+	$options = get_option( 'gkysg_settings' );
+	?>
+	<textarea cols='40' rows='3' name='gkysg_settings[bank_account]'><?php echo trim($options['bank_account']); ?></textarea>
+	<?php
+
+}
+
+
+function gkysg_settings_section_callback(  ) {
+
+	//echo __( 'This section description', 'wordpress' );
+
+}
+
+
+function gkysg_theme_setting_page(  ) {
+
+	?>
+	<form action='options.php' method='post'>
+
+		<?php
+		settings_fields( 'pluginPage' );
+		do_settings_sections( 'pluginPage' );
+		submit_button();
+		?>
+
+	</form>
+	<?php
+
+}
