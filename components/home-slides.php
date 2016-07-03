@@ -89,6 +89,7 @@ $ss_events = get_posts( $ss_event_args );
             </li>
             <!-- END SLIDE -->
             <?php
+                    break;
                 }
                 wp_reset_postdata();
             ?>

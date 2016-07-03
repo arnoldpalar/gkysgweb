@@ -142,6 +142,45 @@ require get_template_directory() . '/inc/jetpack.php';
 /**
  * Register custom post types
  */
+
+
+add_action( 'init', 'init_theme_settings_post' );
+function init_theme_settings_post() {
+	$labels = array(
+		'name'               => __( 'Theme Settings' ),
+		'singular_name'      => __( 'Theme Settings' ),
+		'menu_name'          => __( 'Theme Settings' ),
+		'name_admin_bar'     => __( 'Theme Settings' ),
+		'add_new'            => _x( 'Add New', 'Theme Settings' ),
+		'add_new_item'       => __( 'Add New Theme Settings' ),
+		'new_item'           => __( 'New Theme Settings' ),
+		'edit_item'          => __( 'Edit Theme Settings' ),
+		'view_item'          => __( 'View Theme Settings' ),
+		'all_items'          => __( 'All Theme Settings' ),
+		'search_items'       => __( 'Search Theme Settings' ),
+		'parent_item_colon'  => __( 'Parent Theme Settings:' ),
+		'not_found'          => __( 'No Theme Settings found.' ),
+		'not_found_in_trash' => __( 'No Theme Settings found in Trash.' ),
+	);
+
+	$args = array(
+		'labels'             => $labels,
+		'public'             => true,
+		'publicly_queryable' => true,
+		'show_ui'            => true,
+		'show_in_menu'       => true,
+		'query_var'          => true,
+		'rewrite'            => array( 'slug' => 'theme-settings' ),
+		'capability_type'    => 'post',
+		'has_archive'        => true,
+		'hierarchical'       => false,
+		'menu_position'      => null,
+		'supports'           => array( 'title', 'author', 'thumbnail', 'revisions' )
+	);
+
+	register_post_type( 'theme-settings', $args );
+}
+
 function init_event_post() {
 	$labels = array(
 		'name'               => __( 'Events' ),
@@ -346,6 +385,10 @@ function init_taxonomy_language() {
 	register_taxonomy_for_object_type( 'language', 'song' );
 }
 add_action( 'init', 'init_taxonomy_language' );
+
+/**
+ * REST Services
+ */
 
 function ajax_get_song_types(){
 	$res = array();

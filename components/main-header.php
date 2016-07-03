@@ -28,10 +28,7 @@
                             <span class="badge">0</span>
                             <div class="shopping-cart-open">
                                 <span class="shc-title" style="padding-bottom: 5px; margin-bottom: 10px;"><strong>Notifications</strong></span>
-                                <span class="shc-title">First notification</span>
-                                <span class="shc-title">Second notification</span>
-                                <span class="shc-title">Very long notification Very long notification</span>
-                                <span class="shc-title">Very long notification Very long notification</span>
+                                <span class="shc-title">There's no notification yet</span>
                                 <button type="button" class="btn-u" style="margin-top: 10px;">More</button>
                             </div>
                         </li>

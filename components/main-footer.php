@@ -1,5 +1,98 @@
 <?php
-$options = get_option( 'gkysg_settings' )
+//$options = get_option( 'gkysg_settings' );
+
+$theme_settings_args = array(
+    'posts_per_page'   => 1,
+    'offset'           => 0,
+    'post_type'        => 'theme-settings',
+    'orderby'          => 'post_date',
+    'order'            => 'DESC',
+    'post_status'      => 'publish'
+);
+
+$theme_settings_post = get_posts( $theme_settings_args );
+if(count($theme_settings_post) > 0) {
+    $theme_settings = array();
+    foreach ($theme_settings_post as $post) {
+        setup_postdata($post);
+
+        $theme_settings['web_introduction'] = get_field('web_introduction');
+
+        if( have_rows('addresses') ):
+            $addresses = array();
+
+            while ( have_rows('addresses') ) : the_row();
+                $addresses[] = array(
+                    'name' => get_sub_field('name'),
+                    'map' => get_sub_field('map'),
+                );
+            endwhile;
+
+            $theme_settings['addresses'] = $addresses;
+        endif;
+
+        if( have_rows('phone_numbers') ):
+            $phone_numbers = array();
+
+            while ( have_rows('phone_numbers') ) : the_row();
+                $phone_numbers[] = get_sub_field('number');
+            endwhile;
+
+            $theme_settings['phone_numbers'] = $phone_numbers;
+        endif;
+
+        if( have_rows('social_links') ):
+            $social_links = array();
+
+            while ( have_rows('social_links') ) : the_row();
+                $social_links[] = array(
+                    'type' => get_sub_field('type'),
+                    'url' => get_sub_field('url'),
+                );
+            endwhile;
+
+            $theme_settings['social_links'] = $social_links;
+        endif;
+
+        $theme_settings['email'] = get_field('email');
+
+        if( have_rows('links') ):
+            $links = array();
+
+            while ( have_rows('links') ) : the_row();
+                $links[] = array(
+                    'label' => get_sub_field('label'),
+                    'url' => get_sub_field('url'),
+                );
+            endwhile;
+
+            $theme_settings['links'] = $links;
+        endif;
+
+        break;
+    }
+    wp_reset_postdata();
+}
+
+$ss_event_args = array(
+    'posts_per_page'   => 4,
+    'offset'           => 0,
+    'post_type'        => 'event',
+    'tax_query' => array(
+        array(
+            'taxonomy' => 'event-type',
+            'field' => 'slug',
+            'terms' => array('sunday-service'))
+    ),
+    //'orderby'          => 'post_date',
+    'meta_key'		        => 'date',
+    'orderby'               => 'meta_value_num',
+    'order'            => 'DESC',
+    'post_status'      => 'publish'
+);
+
+$ss_events = get_posts( $ss_event_args );
+
 ?>
 <!--=== Footer v6 ===-->
 <div id="footer-v6" class="footer-v6">
@@ -19,18 +112,18 @@ $options = get_option( 'gkysg_settings' )
                 <div class="col-md-3 sm-margin-bottom-40">
                     <div class="heading-footer"><h2>Recent</h2></div>
                     <ul class="list-unstyled link-news">
+                        <?php if(count($ss_events) >= 2){
+                            $post = $ss_events[1];
+                            setup_postdata($post);
+                            ?>
                         <li>
-                            <a href="#">Apple Conference</a>
-                            <small>12 July, 2014</small>
+                            <a href="<?php echo get_permalink() ?>"><?php the_field('sub_title') ?></a>
+                            <small><?php the_field('sermon') ?></small>
+                            <small>Sunday Service <?php echo DateTime::createFromFormat('Ymd', get_field('date'))->format('d M, Y'); ?></small>
                         </li>
-                        <li>
-                            <a href="#">Bootstrap Update</a>
-                            <small>12 July, 2014</small>
-                        </li>
-                        <li>
-                            <a href="#">Themeforest Templates</a>
-                            <small>12 July, 2014</small>
-                        </li>
+                        <?php
+                            wp_reset_postdata();
+                        } ?>
                     </ul>
                 </div>
                 <!-- End Recent -->
@@ -39,11 +132,13 @@ $options = get_option( 'gkysg_settings' )
                 <div class="col-md-3 sm-margin-bottom-40">
                     <div class="heading-footer"><h2>Links</h2></div>
                     <ul class="list-unstyled footer-link-list">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Portfolio</a></li>
-                        <li><a href="#">Latest jobs</a></li>
-                        <li><a href="#">Community</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <?php if(isset($theme_settings) && isset($theme_settings['links'])) {
+                            foreach ($theme_settings['links'] as $link) {
+                                ?>
+                                <li><a href="<?php echo $link['url'] ?>"><?php echo $link['label'] ?></a></li>
+                                <?php
+                            }
+                        } ?>
                     </ul>
                 </div>
                 <!-- End Links -->
@@ -54,16 +149,30 @@ $options = get_option( 'gkysg_settings' )
                     <ul class="list-unstyled contacts">
                         <li>
                             <i class="radius-3x fa fa-map-marker"></i>
-                            <?php echo str_replace("\n", "<br>", trim($options['address'])) ?>
+                            <?php if(isset($theme_settings) && isset($theme_settings['addresses'])) {
+                            foreach ($theme_settings['addresses'] as $address) {
+                                ?>
+                                <a href="https://www.google.com/maps/place/<?php echo str_replace(' ', '+', $address['map']['address']); ?>/@<?php echo $address['map']['lat']; ?>,<?php echo $address['map']['lng']; ?>,15z" target="_blank">
+                                    <?php echo $address['name']; ?>
+                                </a><br>
+                                <?php
+                                }
+                            } ?>
                         </li>
                         <li>
                             <i class="radius-3x fa fa-phone"></i>
-                            <?php echo str_replace("\n", "<br>", trim($options['phone'])) ?>
+                            <?php if(isset($theme_settings) && isset($theme_settings['phone_numbers'])) {
+                                foreach ($theme_settings['phone_numbers'] as $number) {
+                                    echo $number . '<br>';
+                                }
+                            } ?>
                         </li>
                         <li>
                             <i class="radius-3x fa fa-globe"></i>
                             <a href="/">www.gkysingapore.org</a>
-                            <?php echo str_replace("\n", "<br>", trim($options['email'])) ?>
+                            <?php if(isset($theme_settings) && isset($theme_settings['email'])) {
+                                echo '<a href="mailto:'.$theme_settings['email'].'">'.$theme_settings['email'].'</a>';
+                            } ?>
                         </li>
                     </ul>
                 </div>
@@ -85,21 +194,17 @@ $options = get_option( 'gkysg_settings' )
                 </div>
                 <div class="col-md-4">
                     <ul class="list-inline dark-social pull-right space-bottom-0">
-                        <li>
-                            <a data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="Facebook" href="<?php echo $options['facebook_link'] ?>">
-                                <i class="fa fa-facebook"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="Twitter" href="<?php echo $options['twitter_link'] ?>">
-                                <i class="fa fa-twitter"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="YouTube" href="<?php echo $options['youtube_link'] ?>">
-                                <i class="fa fa-youtube"></i>
-                            </a>
-                        </li>
+                        <?php if(isset($theme_settings) && isset($theme_settings['social_links'])) {
+                            foreach ($theme_settings['social_links'] as $link) {
+                                ?>
+                                <li>
+                                    <a data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="<?php echo $link['type'] ?>" href="<?php echo $link['url'] ?>">
+                                        <i class="fa fa-<?php echo $link['type'] ?>"></i>
+                                    </a>
+                                </li>
+                                <?php
+                            }
+                        } ?>
                     </ul>
                 </div>
             </div>
