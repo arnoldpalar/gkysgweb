@@ -57,7 +57,7 @@ wp_reset_postdata();
                         <a href="http://www.youtube.com/watch?v=<?php echo $ss_event['youtube_id']; ?>">
                             <img src="https://www.youtube.com/yt/brand/media/image/YouTube-icon-full_color.png" alt="link" height="42" width="42">
                         </a>
-			<?php } else { ?><img src="https://www.youtube.com/yt/brand/media/image/YouTube-icon-full_color.png" height="42" width="42" alt="link"><?php } ?>
+			<?php } else { ?>not available<?php } ?>
 		    </td>
                     <td><?php if(!empty($ss_event['recorded_media'])){ ?><a href="<?php echo $ss_event['recorded_media']; ?>">recorded audio</a><?php } ?></td>
             </tr>
