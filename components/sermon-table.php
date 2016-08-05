@@ -34,38 +34,40 @@ wp_reset_postdata();
 ?>
 
 <section>
-    <table class="table-sermon">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Pembicara</th>
-                <th>Judul</th>
-                <th>Tanggal</th>
-		<th>Youtube</th>
-		<th>Audio</th>
-            </tr>
-        </thead>
-        <tbody>
+	<div class="container">
+		<table class="table table-hover table-bordered table-striped table-sermon text-center">
+			<thead>
+				<tr>
+					<th>No</th>
+					<th>Pembicara</th>
+					<th>Judul</th>
+					<th>Tanggal</th>
+					<th>Youtube</th>
+					<th>Audio</th>
+				</tr>
+			</thead>
+			<tbody>
 
-	    <?php foreach($ss_events_arr as $key => $ss_event){ ?>
-            <tr>
-                <td><?php echo ($key+1); ?></td>
-                <td><a href="<?php echo $ss_event['url']; ?>"><h2 class="carousel-item-title"><?php echo $ss_event['title']; ?></h2></a></td>
-                <td><?php echo $ss_event['sermon']; ?></td>
-                <td><?php echo $ss_event['date']; ?></td>
-                <td><?php if(!empty($ss_event['youtube_id'])){ ?>
-                    <a href="http://www.youtube.com/watch?v=<?php echo $ss_event['youtube_id']; ?>">
-                        <img src="https://www.youtube.com/yt/brand/media/image/YouTube-icon-full_color.png" alt="link" height="42" width="42">
-                    </a>
-					<?php } else { ?>not available<?php } ?>
-				</td>
-                <td><?php if(!empty($ss_event['recorded_media'])){ ?>
-					<a href="<?php echo $ss_event['recorded_media']; ?>">recorded audio</a>
-					<?php } else { ?>not available<?php } ?>
-				</td>
-            </tr>
-        <?php } ?>
+			<?php foreach($ss_events_arr as $key => $ss_event){ ?>
+				<tr>
+					<td><?php echo ($key+1); ?></td>
+					<td><a href="<?php echo $ss_event['url']; ?>"><?php echo $ss_event['title']; ?></a></td>
+					<td><?php echo $ss_event['sermon']; ?></td>
+					<td><?php echo $ss_event['date']; ?></td>
+					<td><?php if(!empty($ss_event['youtube_id'])){ ?>
+						<a href="http://www.youtube.com/watch?v=<?php echo $ss_event['youtube_id']; ?>">
+							<img src="https://www.youtube.com/yt/brand/media/image/YouTube-icon-full_color.png" alt="link" height="42" width="42">
+						</a>
+						<?php } else { ?>not available<?php } ?>
+					</td>
+					<td><?php if(!empty($ss_event['recorded_media'])){ ?>
+						<a href="<?php echo $ss_event['recorded_media']; ?>">recorded audio</a>
+						<?php } else { ?>not available<?php } ?>
+					</td>
+				</tr>
+			<?php } ?>
 
-        <tbody>
-    </table>
+			<tbody>
+		</table>
+	</div>
 </section>

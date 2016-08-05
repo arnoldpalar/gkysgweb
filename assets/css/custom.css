@@ -79,15 +79,3 @@
     margin-left: -35px;
     position: absolute;
 }
-
-.table-sermon {
-	margin:auto;
-	margin-top:10%;
-	margin-bottom:10%;
-}
-
-.table-sermon td, th {
-	text-align: center;
-    border: 1px solid black;
-	padding: 5px;
-}
