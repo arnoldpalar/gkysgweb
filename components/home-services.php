@@ -107,7 +107,7 @@ $events = get_posts( $event_args );
         ?>
         <div class="col-md-3 col-sm-6 md-margin-bottom-40">
             <div class="service-block service-block-default no-margin-bottom">
-                <h2 class="heading-sm"><?php the_title() ?></h2>
+                <h2 class="heading-sm"><a href="<?php echo get_permalink() ?>"><?php the_title() ?></a></h2>
                 <p><?php the_field('sub_title') ?></p>
                 <ul class="list-unstyled">
                     <li><?php echo date('d M Y', strtotime(get_field('date'))); ?> <?php the_field('time'); ?></li>
