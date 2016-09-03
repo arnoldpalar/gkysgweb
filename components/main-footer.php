@@ -182,6 +182,7 @@ $ss_events = get_posts( $ss_event_args );
     </div>
 
     <div class="copyright">
+        
         <div class="container">
             <div class="row">
                 <div class="col-md-8 sm-margon-bottom-10">

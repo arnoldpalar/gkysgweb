@@ -7,29 +7,40 @@
  * @package gkysg
  */
 
-get_header(); ?>
+get_header();
+?>
+<body class="header-fixed header-fixed-space">
+<div class="wrapper">
+	<?php get_template_part('components/main', 'header'); ?>
 
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
+	<div class="breadcrumbs">
+		<div class="container">
+			<h1 class="pull-left"><?php the_title() ?></h1>
+			<ul class="pull-right breadcrumb">
+				<li><a href="/">Home</a></li>
+				<li>Pages</li>
+				<li class="active"><?php the_title() ?></li>
+			</ul>
+		</div><!--/container-->
+	</div>
 
+	<div class="container content height-500">
 		<?php
 		while ( have_posts() ) : the_post();
 
 			get_template_part( 'template-parts/content', get_post_format() );
 
-			the_post_navigation();
+			//the_post_navigation();
 
 			// If comments are open or we have at least one comment, load up the comment template.
 			/*if ( comments_open() || get_comments_number() ) :
-				comments_template();
-			endif;*/
+                comments_template();
+            endif;*/
 
 		endwhile; // End of the loop.
 		?>
+	</div>
 
-		</main><!-- #main -->
-	</div><!-- #primary -->
-
-<?php
-get_sidebar();
-get_footer();
+	<?php get_template_part('components/main', 'footer'); ?>
+</div>
+<?php get_footer(); ?>
