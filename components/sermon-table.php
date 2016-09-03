@@ -35,6 +35,9 @@ wp_reset_postdata();
 
 <section>
 	<div class="container">
+		<header>
+			<h1>Sermon</h1>
+		</header>
 		<table class="table table-hover table-bordered table-striped table-sermon text-center">
 			<thead>
 				<tr>
