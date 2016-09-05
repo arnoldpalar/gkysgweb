@@ -42,9 +42,9 @@ wp_reset_postdata();
 			<thead>
 				<tr>
 					<th>No</th>
-					<th>Pembicara</th>
-					<th>Judul</th>
-					<th>Tanggal</th>
+					<th>Topic</th>
+					<th>Preacher</th>
+					<th>Date</th>
 					<th>Youtube</th>
 					<th>Audio</th>
 				</tr>

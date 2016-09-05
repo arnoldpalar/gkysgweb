@@ -34,7 +34,7 @@ $ss_events = get_posts( $ss_event_args );
                     <h2 class="service-title heading-sm"><a href="<?php echo get_permalink() ?>"><?php the_field('sub_title') ?></a></h2>
                     <p><?php the_field('sermon') ?></p>
                     <ul class="list-unstyled">
-                        <li><strong><?php the_title() ?></strong></li>
+                        <!--<li><strong>--><?php //the_title() ?><!--</strong></li>-->
                         <?php
                         $sessions = array();
                         while ( have_rows('service_sessions') ) : the_row();
