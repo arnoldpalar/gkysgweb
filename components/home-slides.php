@@ -1,4 +1,5 @@
 <?php
+$main_image_url = get_field('main_image');
 $ss_event_args = array(
     'posts_per_page'   => 1,
     'offset'           => 0,
@@ -28,7 +29,7 @@ $ss_events = get_posts( $ss_event_args );
             <!-- SS SLIDE -->
             <li class="revolution-mch-1" data-transition="fade" data-slotamount="5" data-masterspeed="1000" data-title="<?php the_field('sub_title') ?>">
                 <!-- MAIN IMAGE -->
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/sliders/8.jpg"  alt="darkblurbg"  data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+                <img src="<?php echo $main_image_url ?>"  alt="darkblurbg"  data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
 
                 <div class="tp-caption revolution-ch1 sft start"
                      data-x="center"

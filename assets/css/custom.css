@@ -8,6 +8,11 @@
     #main-title {
         font-size: 1.5em;
     }
+
+    /*TODO Slider work-around*/
+    /*.tp-banner {
+        height: 500px !important;
+    }*/
 }
 
 @media (max-width: 434px){

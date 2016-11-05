@@ -32,6 +32,7 @@ $ss_events = get_posts( $ss_event_args );
             <div class="col-md-4 col-sm-6 md-margin-bottom-40">
                 <div class="service-block service-block-default no-margin-bottom">
                     <h2 class="service-title heading-sm"><a href="<?php echo get_permalink() ?>"><?php the_field('sub_title') ?></a></h2>
+                    <p><?php $sdate = new DateTime(get_field('date')); echo $sdate->format('F d, Y'); ?></p>
                     <p><?php the_field('sermon') ?></p>
                     <ul class="list-unstyled">
                         <!--<li><strong>--><?php //the_title() ?><!--</strong></li>-->
