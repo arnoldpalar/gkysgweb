@@ -20,24 +20,56 @@
                 </div>
                 <!-- ENd Navbar Brand -->
 
+<?php
+if(isset($theme_settings_post) && count($theme_settings_post) > 0) {
+    $notifications = array();
+    foreach ($theme_settings_post as $post) {
+        setup_postdata($post);
+
+        while ( have_rows('notifications') ) : the_row();
+            if( get_row_layout() == 'notification_item' ) {
+                $notifications[] = array(
+                    'title' => get_sub_field('title'),
+                    'link' => get_sub_field('link')
+                );
+            }
+        endwhile;
+
+        break;
+    }
+    wp_reset_postdata();
+}
+?>
+
                 <!-- Header Inner Right -->
                 <div class="header-inner-right">
                     <ul class="menu-icons-list">
                         <li class="menu-icons shopping-cart">
                             <i class="menu-icons-style radius-x fa fa-info-circle"></i>
-                            <span class="badge">0</span>
+                            <span class="badge"><?php echo (isset($notifications) ? count($notifications) : '0') ?></span>
                             <div class="shopping-cart-open">
                                 <span class="shc-title" style="padding-bottom: 5px; margin-bottom: 10px;"><strong>Notifications</strong></span>
-                                <span class="shc-title">There's no notification yet</span>
-                                <button type="button" class="btn-u" style="margin-top: 10px;">More</button>
+                                <?php
+                                    if(isset($notifications) && count($notifications) > 0){
+                                        foreach ($notifications as $notification) {
+                                ?>
+                                            <span class="shc-title"><a href="<?php echo $notification['link'] ?>"><?php echo $notification['title'] ?></a></span>
+                                <?php
+                                        }
+                                    } else {
+                                        echo '<span class="shc-title">There\'s no notification yet</span>';
+                                    }
+                                ?>
+                                <!--<button type="button" class="btn-u" style="margin-top: 10px;">More</button>--><!--TODO TBI-->
                             </div>
                         </li>
-                        <li class="menu-icons">
+                        <!--TODO TBI-->
+                        <!--<li class="menu-icons">
                             <i class="menu-icons-style search search-close search-btn fa fa-search"></i>
                             <div class="search-open">
                                 <input type="text" class="animated fadeIn form-control" placeholder="Start searching ...">
                             </div>
-                        </li>
+                        </li>-->
                     </ul>
                 </div>
                 <!-- End Header Inner Right -->

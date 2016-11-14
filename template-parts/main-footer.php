@@ -1,17 +1,7 @@
 <?php
 //$options = get_option( 'gkysg_settings' );
 
-$theme_settings_args = array(
-    'posts_per_page'   => 1,
-    'offset'           => 0,
-    'post_type'        => 'theme-settings',
-    'orderby'          => 'post_date',
-    'order'            => 'DESC',
-    'post_status'      => 'publish'
-);
-
-$theme_settings_post = get_posts( $theme_settings_args );
-if(count($theme_settings_post) > 0) {
+if(isset($theme_settings_post) && count($theme_settings_post) > 0) {
     $theme_settings = array();
     foreach ($theme_settings_post as $post) {
         setup_postdata($post);
